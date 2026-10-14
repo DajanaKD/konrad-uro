@@ -1,0 +1,40 @@
+<header class="main-header">
+  <div class="header-content">
+    <span class="badge">Wydarzenie Specjalne</span>
+    <h1>Ostatni rok przed trzydziestką ❤</h1>
+  </div>
+</header>
+<app-fleeing-element />
+<main class="grid-container">
+ 
+  @for (item of tiles; track item.number) {
+    <div class="tile" [class.flipped]="item.isFlipped" (click)="toggleFlip(item)">
+      <div class="tile-inner">
+        
+        <div class="tile-front">
+          <div class="tile-number-large">{{ item.number }}</div>
+        </div>
+
+        <div class="tile-back">
+            <div class="tile-image">
+              <img [src]="item.imageUrl" [alt]="'Zdjęcie ' + item.number">
+            </div>
+            <div class="tile-text">{{ item.text }}</div>
+            @if (item.number === '09' && tiles.length < 12) {
+                <div class="input-container" (click)="$event.stopPropagation()">
+                  <input 
+                    type="text" 
+                    [(ngModel)]="newTileText" 
+                    (keyup.enter)="addNewTile()"
+                    placeholder="Specjalne życzenia..." 
+                    class="dynamic-tile-input"
+                  />
+                  <button class="add-btn" (click)="addNewTile()">Dodaj</button>
+                </div>
+              }
+        </div>
+
+      </div>
+    </div>
+  }
+</main>
